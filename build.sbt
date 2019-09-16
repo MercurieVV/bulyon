@@ -1,4 +1,4 @@
-name := "scala-template"
+name := "bulyon"
 
 organization := "com.github.mercurievv"
 
