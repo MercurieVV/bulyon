@@ -5,10 +5,19 @@
     <output-test url="file://$MODULE_DIR$/../../lambda/target/scala-2.12/test-classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../lambda">
+      <sourceFolder url="file://$MODULE_DIR$/../../lambda/src/main/scala" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../../lambda/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.12.8:jar" level="project" />
+    <orderEntry type="module" module-name="bulyon.common" exported="" />
+    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:1.7.28:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.amazonaws:aws-lambda-java-core:1.2.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.12.8:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-core_2.12:1.6.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-kernel_2.12:1.6.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-macros_2.12:1.6.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:machinist_2.12:0.6.6:jar" level="project" />
   </component>
 </module>
