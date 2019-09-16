@@ -46,4 +46,12 @@ lazy val common = (project in file("common"))
     )
     , addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary)
   )
-lazy val lambdaHttp4sDefault = (project in file("lambda-http4s-default"))
+lazy val lambdaHttp4sFs2Zio = (project in file("lambda-http4s-fs2zio"))
+  .settings(
+    libraryDependencies ++= Seq(
+      "co.fs2" %% "fs2-core" % "1.0.5",
+      "dev.zio" %% "zio-interop-cats" % "1.3.1.0-RC3",
+    )
+    , addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary)
+  )
+  .dependsOn(lambdaHttp4s)
