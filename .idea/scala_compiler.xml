@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="sbt 1" modules="boulyon,bulyon,bulyon_5182,common,core,http4s,lambda,lambdaHttp4sDefault,util" />
-    <profile name="sbt 2" modules="bulyon.common,bulyon.http4s,bulyon.lambda,lambdaHttp4s">
+    <profile name="sbt 1" modules="boulyon,bulyon,bulyon_5182,common,core,http4s,lambda,lambdaHttp4sDefault,lambdaHttp4sFs2Zio,util" />
+    <profile name="sbt 2" modules="bulyon.common,bulyon.http4s,bulyon.lambda,lambda-http4s-fs2zio.lambdaHttp4sFs2Zio,lambdaHttp4s">
       <plugins>
         <plugin path="C:\Users\mercu\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\typelevel\kind-projector_2.12\0.10.3\kind-projector_2.12-0.10.3.jar" />
       </plugins>

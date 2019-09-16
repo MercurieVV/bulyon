@@ -7,8 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bulyon.common.iml" filepath="$PROJECT_DIR$/.idea/modules/bulyon.common.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bulyon.http4s.iml" filepath="$PROJECT_DIR$/.idea/modules/bulyon.http4s.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bulyon.lambda.iml" filepath="$PROJECT_DIR$/.idea/modules/bulyon.lambda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lambda-http4s-fs2zio.lambdaHttp4sFs2Zio.iml" filepath="$PROJECT_DIR$/.idea/modules/lambda-http4s-fs2zio.lambdaHttp4sFs2Zio.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lambdaHttp4s.iml" filepath="$PROJECT_DIR$/.idea/modules/lambdaHttp4s.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lambdaHttp4sDefault.iml" filepath="$PROJECT_DIR$/.idea/modules/lambdaHttp4sDefault.iml" />
     </modules>
   </component>
 </project>
