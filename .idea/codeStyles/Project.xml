@@ -1,0 +1,15 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <option name="LINE_SEPARATOR" value="&#10;" />
+    <ScalaCodeStyleSettings>
+      <option name="alwaysUsedImports">
+        <array>
+          <option value="io.circe.generic.auto._" />
+          <option value="org.scalacheck.ScalacheckShapeless._" />
+        </array>
+      </option>
+      <option name="SCALAFMT_CONFIG_PATH" value=".\common_gradle_scripts\.scalafmt.conf" />
+      <option name="FORMATTER" value="1" />
+    </ScalaCodeStyleSettings>
+  </code_scheme>
+</component>
