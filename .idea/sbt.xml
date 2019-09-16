@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/http4s" />
             <option value="$PROJECT_DIR$/lambda" />
+            <option value="$PROJECT_DIR$/lambda-http4s" />
             <option value="$PROJECT_DIR$/lambda-http4s-default" />
             <option value="$PROJECT_DIR$/project" />
           </set>
