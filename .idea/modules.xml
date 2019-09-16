@@ -4,6 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bulyon.iml" filepath="$PROJECT_DIR$/.idea/modules/bulyon.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bulyon-build.iml" filepath="$PROJECT_DIR$/.idea/modules/bulyon-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bulyon.http4s.iml" filepath="$PROJECT_DIR$/.idea/modules/bulyon.http4s.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bulyon.lambda.iml" filepath="$PROJECT_DIR$/.idea/modules/bulyon.lambda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lambdaHttp4s.iml" filepath="$PROJECT_DIR$/.idea/modules/lambdaHttp4s.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lambdaHttp4sDefault.iml" filepath="$PROJECT_DIR$/.idea/modules/lambdaHttp4sDefault.iml" />
     </modules>
   </component>
 </project>
