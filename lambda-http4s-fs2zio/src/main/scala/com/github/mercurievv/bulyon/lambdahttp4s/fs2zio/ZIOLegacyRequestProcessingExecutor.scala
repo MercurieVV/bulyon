@@ -19,7 +19,7 @@ import com.github.mercurievv.bulyon.common.{
   NotFound_404
 }
 import com.github.mercurievv.bulyon.http4s.Http4sFunctionProcessor
-import com.github.mercurievv.bulyon.lambdahttp4s.fs2zio.DefaultRequestProcessorExecuter.{
+import com.github.mercurievv.bulyon.lambdahttp4s.fs2zio.ZIOLegacyRequestProcessingExecutor.{
   DefaultRequestProcessorExecuterImpl,
   IOL,
   Resp,
@@ -51,7 +51,7 @@ import zio.interop.catz._
   *
   * Its dirty implementation. Was done to start ASAP. Should be changed to better use ZIO (or IO) capabilities. Also I should do something with single/sequence
   */
-object DefaultRequestProcessorExecuter {
+object ZIOLegacyRequestProcessingExecutor {
 //  type IO[-R, +E, +A]  = ZIO[R, E, A]
   type IOL[A] = ZIO[cats.effect.IO[_], Throwable, A] //legacy
   type KleisliIO[A, B] = Kleisli[IOL, A, B]
@@ -76,7 +76,7 @@ object DefaultRequestProcessorExecuter {
 
 object DefaultRequestProcessorExecuterImpl
     extends DefaultRequestProcessorExecuterImpl[
-      DefaultRequestProcessorExecuter.IOL
+      ZIOLegacyRequestProcessingExecutor.IOL
     ] {
   type IOL[A] = ZIO[cats.effect.IO[_], Throwable, A] //legacy
   val dsl: Http4sDsl[IOL] = Http4sDsl[IOL]
@@ -87,12 +87,12 @@ object DefaultRequestProcessorExecuterImpl
 
 //  override def processBody[T](bodyIo: Req)(implicit decoder: EntityDecoder[IOL, T]): T = ??? //bodyIo.as[T].unsafeRunSync()
 //  override def processBody[T](bodyStream: http4s.DefaultRequestProcessorExecuterImpl.Req)(implicit decoder: EntityDecoder[IO, T]): T = ???
-  override def processBody[T](bodyStream: DefaultRequestProcessorExecuter.Req)(
+  override def processBody[T](bodyStream: ZIOLegacyRequestProcessingExecutor.Req)(
     implicit decoder: EntityDecoder[IOL, T]
   ): T = ???
 
   private val log: Logger =
-    LoggerFactory.getLogger(DefaultRequestProcessorExecuter.getClass)
+    LoggerFactory.getLogger(ZIOLegacyRequestProcessingExecutor.getClass)
   private val printer = Printer.spaces2.copy(dropNullValues = true)
 
   type ErrData = (Class[_], Request[IOL])
