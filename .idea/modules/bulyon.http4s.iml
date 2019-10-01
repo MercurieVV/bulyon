@@ -12,30 +12,30 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.12.8:jar" level="project" />
     <orderEntry type="module" module-name="bulyon.common" exported="" />
-    <orderEntry type="library" name="sbt: org.http4s:http4s-server_2.12:0.20.9:jar" level="project" />
-    <orderEntry type="library" name="sbt: co.fs2:fs2-core_2.12:1.0.5:jar" level="project" />
-    <orderEntry type="library" name="sbt: co.fs2:fs2-io_2.12:1.0.5:jar" level="project" />
-    <orderEntry type="library" name="sbt: io.chrisdavenport:unique_2.12:1.0.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: io.chrisdavenport:vault_2.12:1.0.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: io.circe:circe-core_2.12:0.11.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: io.circe:circe-jawn_2.12:0.11.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: io.circe:circe-numbers_2.12:0.11.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.http4s:http4s-circe_2.12:0.20.9:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.http4s:http4s-core_2.12:0.20.9:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.http4s:http4s-dsl_2.12:0.20.9:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.http4s:http4s-jawn_2.12:0.20.9:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.http4s:jawn-fs2_2.12:0.14.2:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.http4s:parboiled_2.12:1.0.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.log4s:log4s_2.12:1.7.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.12.8:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scodec:scodec-bits_2.12:1.1.11:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:1.7.28:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.typelevel:cats-core_2.12:1.6.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.typelevel:cats-effect_2.12:1.4.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.typelevel:cats-kernel_2.12:1.6.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.typelevel:cats-macros_2.12:1.6.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.typelevel:jawn-parser_2.12:0.14.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.typelevel:machinist_2.12:0.6.6:jar" level="project" />
     <orderEntry type="library" name="sbt: uk.org.lidalia:sysout-over-slf4j:1.0.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:machinist_2.12:0.6.6:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:jawn-parser_2.12:0.14.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-macros_2.12:1.6.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-kernel_2.12:1.6.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-effect_2.12:1.4.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-core_2.12:1.6.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:1.7.28:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scodec:scodec-bits_2.12:1.1.11:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.12.8:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.log4s:log4s_2.12:1.7.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.http4s:parboiled_2.12:1.0.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.http4s:jawn-fs2_2.12:0.14.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.http4s:http4s-jawn_2.12:0.20.9:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.http4s:http4s-dsl_2.12:0.20.9:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.http4s:http4s-core_2.12:0.20.9:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.http4s:http4s-circe_2.12:0.20.9:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-numbers_2.12:0.11.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-jawn_2.12:0.11.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-core_2.12:0.11.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.chrisdavenport:vault_2.12:1.0.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.chrisdavenport:unique_2.12:1.0.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: co.fs2:fs2-io_2.12:1.0.5:jar" level="project" />
+    <orderEntry type="library" name="sbt: co.fs2:fs2-core_2.12:1.0.5:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.http4s:http4s-server_2.12:0.20.9:jar" level="project" />
   </component>
 </module>
