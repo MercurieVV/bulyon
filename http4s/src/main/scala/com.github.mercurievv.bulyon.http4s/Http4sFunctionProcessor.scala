@@ -13,30 +13,29 @@ import scala.language.higherKinds
   * Time: 3:09 AM
   * Contacts: email: mercurievvss@gmail.com Skype: 'grobokopytoff' or 'mercurievv'
   */
-trait Http4sFunctionProcessor[SingleResponseT[_], SequenceResponseT[_], F[_]] {
-  type Req  = Request[F]
-  type Resp = F[Response[F]]
+trait Http4sFunctionProcessor[H4SF[_], PRF[_]] {
+  type Req  = Request[H4SF]
+  type Resp = H4SF[Response[H4SF]]
 
-  def processBody[T](bodyStream: Req)(implicit decoder: EntityDecoder[F, T]): T
+  def processBody[T](bodyStream: Req)(implicit decoder: EntityDecoder[H4SF, T]): H4SF[T]
 
-  def processSingle[I, O](
-          processor: (I, Req) => SingleResponseT[O],
-          input: SingleResponseT[I],
+  def process[I, O](
+          processor: (I, Req) => PRF[O],
+          input: H4SF[I],
           toJson: O => Json,
-          req: Request[F],
+          req: Request[H4SF],
   ): Resp = {
-    val function: I => SingleResponseT[O] = processor(_: I, req)
-    processSingle(function, input, toJson, req)
+    val function: I => PRF[O] = processor(_: I, req)
+    process(function, input, toJson, req)
   }
 
-  def processSingle[I, O](
-          processor: I => SingleResponseT[O],
-          input: SingleResponseT[I],
+  def process[I, O](
+          processor: I => PRF[O],
+          input: H4SF[I],
           toJson: O => Json,
-          req: Request[F],
+          req: Request[H4SF],
   ): Resp
 
-  def processSequence[I, O](processor: I => SequenceResponseT[O], input: SingleResponseT[I], toJson: O => Json, req: Request[F]): Resp
 
 /*
   def validation[T](o: Option[ValidatedNel[ParseFailure, T]]): Either[BadRequest_400, Option[T]] = o match {
