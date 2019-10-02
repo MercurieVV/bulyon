@@ -19,6 +19,7 @@ trait Http4sFunctionProcessor[H4SF[_], PRF[_]] {
 
   def processBody[T](bodyStream: Req)(implicit decoder: Decoder[T]): H4SF[T]
 
+/*
   def process[I, O](
           processor: (I, Req) => PRF[O],
           input: H4SF[I],
@@ -28,6 +29,7 @@ trait Http4sFunctionProcessor[H4SF[_], PRF[_]] {
     val function: I => PRF[O] = processor(_: I, req)
     process(function, input, toJson, req)
   }
+*/
 
   def process[I, O](
           processor: I => PRF[O],
