@@ -1,7 +1,7 @@
 package com.github.mercurievv.bulyon.http4s
 
 import cats.data.ValidatedNel
-import io.circe.Json
+import io.circe.{Decoder, Json}
 import org.http4s.{EntityDecoder, ParseFailure, Request, Response}
 
 import scala.language.higherKinds
@@ -17,7 +17,7 @@ trait Http4sFunctionProcessor[H4SF[_], PRF[_]] {
   type Req  = Request[H4SF]
   type Resp = H4SF[Response[H4SF]]
 
-  def processBody[T](bodyStream: Req)(implicit decoder: EntityDecoder[H4SF, T]): H4SF[T]
+  def processBody[T](bodyStream: Req)(implicit decoder: Decoder[T]): H4SF[T]
 
   def process[I, O](
           processor: (I, Req) => PRF[O],

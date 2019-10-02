@@ -12,6 +12,7 @@ import _root_.io.circe._
 import com.github.mercurievv.bulyon.common._
 import org.http4s._
 import org.http4s.dsl._
+import org.http4s.circe.jsonOf
 import org.slf4j.{Logger, LoggerFactory}
 import zio.{ZIO, _}
 import zio.interop.catz._
@@ -35,7 +36,8 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
   type ErrData = (Class[_], Request[H4SIO])
   def H4SIO[O](body: => O): H4SIO[O] = RIO(body)
 
-  override def processBody[T](bodyStream: Req)(implicit decoder: EntityDecoder[H4SIO, T]): H4SIO[T] = {
+  override def processBody[T](bodyStream: Req)(implicit decoder: Decoder[T]): RIO[R, T] = {
+    implicit val entityDecoder: EntityDecoder[H4SIO, T] = jsonOf[H4SIO, T]
     bodyStream.as[T]
   }
 
