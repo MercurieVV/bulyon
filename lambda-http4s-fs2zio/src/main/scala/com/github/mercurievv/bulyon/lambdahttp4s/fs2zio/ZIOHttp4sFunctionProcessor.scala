@@ -5,6 +5,7 @@ import java.time.ZonedDateTime
 import com.github.mercurievv.bulyon.http4s.Http4sFunctionProcessor
 import io.circe.Json
 import io.circe.generic.auto._
+import org.http4s.circe.jsonOf
 
 import scala.compat.Platform.EOL
 //import org.http4s.dsl.io._
@@ -12,32 +13,31 @@ import _root_.io.circe._
 import com.github.mercurievv.bulyon.common._
 import org.http4s._
 import org.http4s.dsl._
-import org.http4s.circe.jsonOf
 import org.slf4j.{Logger, LoggerFactory}
-import zio.{ZIO, _}
 import zio.interop.catz._
+import zio.{ZIO, _}
 
 import scala.language.higherKinds
 
 /**
-  * Created with IntelliJ IDEA.
-  * User: Victor Mercurievv
-  * Date: 10/2/2017
-  * Time: 9:56 PM
-  * Contacts: email: mercurievvss@gmail.com Skype: 'grobokopytoff' or 'mercurievv'
-  */
+ * Created with IntelliJ IDEA.
+ * User: Victor Mercurievv
+ * Date: 10/2/2017
+ * Time: 9:56 PM
+ * Contacts: email: mercurievvss@gmail.com Skype: 'grobokopytoff' or 'mercurievv'
+ */
 class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?], ZIO[R, E, ?]] {
   type H4SIO[A] = RIO[R, A]
-  type PRIO[A] = ZIO[R, E, A]
+  type PRIO[A]  = ZIO[R, E, A]
   val dsl: Http4sDsl[H4SIO] = Http4sDsl[H4SIO]
   import dsl._
   private val log: Logger = LoggerFactory.getLogger(classOf[ZIOHttp4sFunctionProcessor[_, _]])
-  private val printer = Printer.spaces2.copy(dropNullValues = true)
+  private val printer     = Printer.spaces2.copy(dropNullValues = true)
   type ErrData = (Class[_], Request[H4SIO])
   def H4SIO[O](body: => O): H4SIO[O] = RIO(body)
 
   override def processBody[T](bodyStream: Req)(implicit decoder: Decoder[T]): RIO[R, T] = {
-    implicit val entityDecoder: EntityDecoder[H4SIO, T] = jsonOf[H4SIO, T]
+    implicit val dec: EntityDecoder[H4SIO, T] = jsonOf[H4SIO, T]
     bodyStream.as[T]
   }
 
@@ -49,7 +49,7 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
         i <- input
         o <- processor(i).catchAll {
           case t: Throwable => ZIO.fail(t)
-          case e => ZIO.fail(new Throwable("Unknown Error: " + e))
+          case e            => ZIO.fail(new Throwable("Unknown Error: " + e))
         } //.foldM(e => handleErrors(e, (processor.getClass, req /*, buildInfo )), s => ZIO.succeed(s))//.handleErrorWith(e => handleErrors(e, (processor.getClass, req , buildInfo ))) //.either.map(ee => ee.right.flatMap(s => s))
         response <- asyncIOLToJson(
           toJson,
@@ -65,12 +65,11 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
     }
   }
 
-
   def asyncIOLToJson[O, I](
-    toJson: O => Json,
-    result: O,
-    errData: ErrData
-  ): H4SIO[Response[H4SIO]] = {
+                            toJson: O => Json,
+                            result: O,
+                            errData: ErrData
+                          ): H4SIO[Response[H4SIO]] = {
     try {
       val jsonString = H4SIO[String] { printer.pretty(toJson(result)) }
       Ok(jsonString)
@@ -81,9 +80,9 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
   }
 
   private def handleErrors[O, I](
-    t: Throwable,
-    errData: ErrData
-  ): H4SIO[Response[H4SIO]] = {
+                                  t: Throwable,
+                                  errData: ErrData
+                                ): H4SIO[Response[H4SIO]] = {
     t match {
       case BusinessError(Some(beId)) =>
         //        SentryHelper.setTag("error_type", "business_error")
@@ -157,12 +156,12 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
     }
 
   private def createErrorJson[I, O](
-                                                                          t: Throwable,
-                                                                          code: Int,
-                                                                          name: String,
-                                                                          errData: (Class[_], Request[H4SIO] /*, BuildInfo*/ ),
-                                                                          businessError: Option[Business]
-                                                                        ): H4SIO[String] = {
+                                     t: Throwable,
+                                     code: Int,
+                                     name: String,
+                                     errData: (Class[_], Request[H4SIO] /*, BuildInfo*/ ),
+                                     businessError: Option[Business]
+                                   ): H4SIO[String] = {
     import _root_.io.circe.generic.auto._
     import _root_.io.circe.syntax._
     UIO {
@@ -186,13 +185,15 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
   }
   private case class ErrorRequestInfo(uri: String, method: String, path: String)
   private case class Business(code: String, text: String)
-  private case class ErrorResponse(message: String,
-                                   time: ZonedDateTime,
-                                   stacktrace: String,
-                                   http_error_code: Int,
-                                   http_error_text: String,
-                                   request: ErrorRequestInfo,
-                                   //          build: BuildInfo,
-                                   businessError: Option[Business])
+  private case class ErrorResponse(
+                                    message: String,
+                                    time: ZonedDateTime,
+                                    stacktrace: String,
+                                    http_error_code: Int,
+                                    http_error_text: String,
+                                    request: ErrorRequestInfo,
+                                    //          build: BuildInfo,
+                                    businessError: Option[Business]
+                                  )
 
 }
