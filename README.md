@@ -1,5 +1,4 @@
-[![Release](https://jitpack.io/v/MercurieVV/common.svg)]
-(https://jitpack.io/#MercurieVV/bulyon)
+[![](https://jitpack.io/v/MercurieVV/bulyon.svg)](https://jitpack.io/#MercurieVV/bulyon)(https://jitpack.io/#MercurieVV/bulyon)
 # bulyon
 Template project. To create new projects from it
 
