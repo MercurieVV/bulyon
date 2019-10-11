@@ -37,11 +37,11 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
   def H4SIO[O](body: => O): H4SIO[O] = RIO(body)
 
   override def processBody[T](bodyStream: Req)(implicit decoder: Decoder[T]): RIO[R, T] = {
-    implicit val dec: EntityDecoder[H4SIO, T] = jsonOf[H4SIO, T]
+    implicit val value: EntityDecoder[H4SIO, T] = jsonOf[H4SIO, T]
     bodyStream.as[T]
   }
 
-  override def process[I, O](processor: I => ZIO[R, E, O], input: RIO[R, I], toJson: O => Json, req: Request[H4SIO]): Resp = {
+  override def process[I, O](processor: I => ZIO[R, E, O], input: RIO[R, I], req: Request[H4SIO])(implicit ev: EntityEncoder[H4SIO, O]): Resp = {
     try {
 
       //      log.info(input.toString)
@@ -52,7 +52,6 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
           case e            => ZIO.fail(new Throwable("Unknown Error: " + e))
         } //.foldM(e => handleErrors(e, (processor.getClass, req /*, buildInfo )), s => ZIO.succeed(s))//.handleErrorWith(e => handleErrors(e, (processor.getClass, req , buildInfo ))) //.either.map(ee => ee.right.flatMap(s => s))
         response <- asyncIOLToJson(
-          toJson,
           o,
           (processor.getClass, req /*, buildInfo*/ )
         )
@@ -66,13 +65,11 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
   }
 
   def asyncIOLToJson[O, I](
-                            toJson: O => Json,
                             result: O,
                             errData: ErrData
-                          ): H4SIO[Response[H4SIO]] = {
+                          )(implicit ev: EntityEncoder[H4SIO, O]): H4SIO[Response[H4SIO]] = {
     try {
-      val jsonString = H4SIO[String] { printer.pretty(toJson(result)) }
-      Ok(jsonString)
+      Ok(result)
     } catch {
       case e: Throwable => handleErrors(e, errData)
     }
