@@ -50,8 +50,8 @@ lazy val lambdaHttp4sFs2Zio = (project in file("lambda-http4s-fs2zio"))
   .settings(
     libraryDependencies ++= Seq(
       "co.fs2" %% "fs2-core" % "1.0.5",
-      "dev.zio" %% "zio-interop-cats" % "1.3.1.0-RC3",
-      "dev.zio" %% "zio" % "1.0.0-RC13"
+      "dev.zio" %% "zio" % "1.0.0-RC15",
+      "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC5",
     )
     , addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary)
   )
