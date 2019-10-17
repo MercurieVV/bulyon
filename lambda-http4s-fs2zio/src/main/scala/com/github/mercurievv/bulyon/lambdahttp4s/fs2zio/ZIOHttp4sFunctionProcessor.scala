@@ -2,15 +2,13 @@ package com.github.mercurievv.bulyon.lambdahttp4s.fs2zio
 
 import java.time.ZonedDateTime
 
+import com.github.mercurievv.bulyon.common._
 import com.github.mercurievv.bulyon.http4s.Http4sFunctionProcessor
-import io.circe.Json
-import io.circe.generic.auto._
-import org.http4s.circe.jsonOf
 
 import scala.compat.Platform.EOL
 //import org.http4s.dsl.io._
 import _root_.io.circe._
-import com.github.mercurievv.bulyon.common._
+import io.circe.generic.auto._
 import org.http4s._
 import org.http4s.dsl._
 import org.slf4j.{Logger, LoggerFactory}
@@ -26,31 +24,21 @@ import scala.language.higherKinds
  * Time: 9:56 PM
  * Contacts: email: mercurievvss@gmail.com Skype: 'grobokopytoff' or 'mercurievv'
  */
-class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?], ZIO[R, E, ?]] {
-  type H4SIO[A] = RIO[R, A]
-  type PRIO[A]  = ZIO[R, E, A]
-  val dsl: Http4sDsl[H4SIO] = Http4sDsl[H4SIO]
+class ZIOHttp4sFunctionProcessor[R] extends Http4sFunctionProcessor[ZIO[R, Throwable, ?], ZIO[R, Throwable, ?]] {
+  type APPIO[A] = ZIO[R, Throwable, A]
+  val dsl: Http4sDsl[APPIO] = Http4sDsl[APPIO]
   import dsl._
-  private val log: Logger = LoggerFactory.getLogger(classOf[ZIOHttp4sFunctionProcessor[_, _]])
+  private val log: Logger = LoggerFactory.getLogger(classOf[ZIOHttp4sFunctionProcessor[_]])
   private val printer     = Printer.spaces2.copy(dropNullValues = true)
-  type ErrData = (Class[_], Request[H4SIO])
-  def H4SIO[O](body: => O): H4SIO[O] = RIO(body)
+  type ErrData = (Class[_], Request[APPIO])
 
-  override def processBody[T](bodyStream: Req)(implicit decoder: Decoder[T]): RIO[R, T] = {
-    implicit val value: EntityDecoder[H4SIO, T] = jsonOf[H4SIO, T]
-    bodyStream.as[T]
-  }
-
-  override def process[I, O](processor: I => ZIO[R, E, O], input: RIO[R, I], req: Request[H4SIO])(implicit ev: EntityEncoder[H4SIO, O]): Resp = {
+  def process[I, O](processor: I => APPIO[O], input: APPIO[I], req: Request[APPIO])(implicit ev: EntityEncoder[APPIO, O]): Resp = {
     try {
 
       //      log.info(input.toString)
       for {
         i <- input
-        o <- processor(i).catchAll {
-          case t: Throwable => ZIO.fail(t)
-          case e            => ZIO.fail(new Throwable("Unknown Error: " + e))
-        } //.foldM(e => handleErrors(e, (processor.getClass, req /*, buildInfo )), s => ZIO.succeed(s))//.handleErrorWith(e => handleErrors(e, (processor.getClass, req , buildInfo ))) //.either.map(ee => ee.right.flatMap(s => s))
+        o <- processor(i).catchAll[R, Throwable, O](cacthErrors) //.foldM(e => handleErrors(e, (processor.getClass, req /*, buildInfo )), s => ZIO.succeed(s))//.handleErrorWith(e => handleErrors(e, (processor.getClass, req , buildInfo ))) //.either.map(ee => ee.right.flatMap(s => s))
         response <- asyncIOLToJson(
           o,
           (processor.getClass, req /*, buildInfo*/ )
@@ -60,14 +48,14 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
       case t: Throwable =>
         log.error("processSingle Error processing: " + t.getMessage, t)
         val error: Status.InternalServerError.type = InternalServerError
-        error(H4SIO { t.getMessage })
+        error(ZIO { t.getMessage })
     }
   }
 
   def asyncIOLToJson[O, I](
                             result: O,
                             errData: ErrData
-                          )(implicit ev: EntityEncoder[H4SIO, O]): H4SIO[Response[H4SIO]] = {
+                          )(implicit ev: EntityEncoder[APPIO, O]): APPIO[Response[APPIO]] = {
     try {
       Ok(result)
     } catch {
@@ -79,7 +67,7 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
   private def handleErrors[O, I](
                                   t: Throwable,
                                   errData: ErrData
-                                ): H4SIO[Response[H4SIO]] = {
+                                ): APPIO[Response[APPIO]] = {
     t match {
       case BusinessError(Some(beId)) =>
         //        SentryHelper.setTag("error_type", "business_error")
@@ -156,9 +144,9 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
                                      t: Throwable,
                                      code: Int,
                                      name: String,
-                                     errData: (Class[_], Request[H4SIO] /*, BuildInfo*/ ),
+                                     errData: (Class[_], Request[APPIO] /*, BuildInfo*/ ),
                                      businessError: Option[Business]
-                                   ): H4SIO[String] = {
+                                   ): APPIO[String] = {
     import _root_.io.circe.generic.auto._
     import _root_.io.circe.syntax._
     UIO {
@@ -193,4 +181,8 @@ class ZIOHttp4sFunctionProcessor[R, E] extends Http4sFunctionProcessor[RIO[R, ?]
                                     businessError: Option[Business]
                                   )
 
+  def cacthErrors[T](e: Throwable): IO[Throwable, Nothing] = e match {
+    case t: Throwable => ZIO.fail[Throwable](t)
+    case e            => ZIO.fail[Throwable](new Throwable("Unknown Error: " + e))
+  }
 }
