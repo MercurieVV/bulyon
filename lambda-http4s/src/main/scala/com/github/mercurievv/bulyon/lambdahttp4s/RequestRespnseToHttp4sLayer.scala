@@ -29,9 +29,9 @@ class RequestRespnseToHttp4sLayer[F[_]](httpServices: Stream[F, HttpRoutes[F]]) 
 
     {
       for {
-        aa <- OptionT(processStream)
-        bb <- OptionT(aa)
-      } yield bb
+        opt1 <- OptionT(processStream)
+        opt2 <- OptionT(opt1)
+      } yield opt2
     }.value
 
   }
