@@ -20,19 +20,17 @@ import scala.language.higherKinds
 class RequestRespnseToHttp4sLayer[F[_]](httpServices: Stream[F, HttpRoutes[F]]) {
 
   def apply(request: Request[F])(implicit compiler: Stream.Compiler[F, F], FF: Concurrent[F]): F[Option[Response[F]]] = {
-    val processStream = httpServices
+    httpServices
       .map(httpRoutes => {
         val httpRoutesLogged =
           ResponseLogger.httpRoutes(logHeaders = true, logBody = true)(RequestLogger.httpRoutes(logHeaders = true, logBody = true)(httpRoutes))
         httpRoutesLogged(request).value
-      }).compile.last //.flatMap(_.getOrElse(value))
-
-    {
-      for {
-        opt1 <- OptionT(processStream)
-        opt2 <- OptionT(opt1)
-      } yield opt2
-    }.value
-
+      })
+      .flatMap(Stream.eval).flatMap{
+        case None => Stream.empty
+        case Some(value) => Stream(value)
+      }
+      .compile
+      .last
   }
 }
