@@ -42,7 +42,7 @@ lazy val common = (project in file("common"))
     libraryDependencies ++= Seq(
       "org.slf4j" % "slf4j-api" % "1.7.28",
       "uk.org.lidalia" % "sysout-over-slf4j" % "1.0.2" excludeAll(ExclusionRule(organization = "org.slf4j")),
-      "org.typelevel" %% "cats-core" % "1.6.1",
+      "org.typelevel" %% "cats-core" % "2.0.0",
     )
     , addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary)
   )
