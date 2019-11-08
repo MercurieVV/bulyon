@@ -23,7 +23,7 @@ import scala.language.higherKinds
 class ApiGProxyLambda[F[_]](httpServices: Stream[F, HttpRoutes[F]])(implicit compiler: Stream.Compiler[F, F], FF: Concurrent[F])
     extends IOFunction[Input, F[ApiGProxyHttp4sRequestResponseLayer.Output]] {
   type Response = ApiGProxyHttp4sRequestResponseLayer.Output
-  private val reqRespToHttp4s = new RequestRespnseToHttp4sLayer(httpServices)
+  private val reqRespToHttp4s = new RequestRespnseToHttp4sRoutesLayer(httpServices)
   private val http4sProcessor = ApiGProxyHttp4sRequestResponseLayer(Layer.F(reqRespToHttp4s.apply))
   private val log: Logger     = LoggerFactory.getLogger(classOf[ApiGProxyLambda[F]])
 
