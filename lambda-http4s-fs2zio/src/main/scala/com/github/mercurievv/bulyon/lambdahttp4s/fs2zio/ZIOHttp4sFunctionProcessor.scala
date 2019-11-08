@@ -32,7 +32,7 @@ class ZIOHttp4sFunctionProcessor[R] extends Http4sFunctionProcessor[ZIO[R, Throw
   private val printer     = Printer.spaces2.copy(dropNullValues = true)
   type ErrData = (Class[_], Request[APPIO])
 
-  def process[I, O](processor: I => APPIO[O], input: APPIO[I], req: Request[APPIO])(implicit ev: EntityEncoder[APPIO, O]): Resp = {
+  def process[I, O](processor: I => APPIO[O], input: APPIO[I], req: Request[APPIO])(implicit entityEncoder: EntityEncoder[APPIO, O]): Resp = {
     try {
 
       //      log.info(input.toString)
@@ -55,7 +55,7 @@ class ZIOHttp4sFunctionProcessor[R] extends Http4sFunctionProcessor[ZIO[R, Throw
   def asyncIOLToJson[O, I](
                             result: O,
                             errData: ErrData
-                          )(implicit ev: EntityEncoder[APPIO, O]): APPIO[Response[APPIO]] = {
+                          )(implicit entityEncoder: EntityEncoder[APPIO, O]): APPIO[Response[APPIO]] = {
     try {
       Ok(result)
     } catch {
