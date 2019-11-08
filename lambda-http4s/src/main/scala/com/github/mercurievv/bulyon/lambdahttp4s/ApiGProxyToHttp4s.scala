@@ -20,12 +20,12 @@ import scala.language.higherKinds
   * Time: 2:27 AM
   * Contacts: email: mercurievvss@gmail.com Skype: 'grobokopytoff' or 'mercurievv'
   */
-class ApiGProxyLambda[F[_]](httpServices: Stream[F, HttpRoutes[F]])(implicit compiler: Stream.Compiler[F, F], FF: Concurrent[F])
+class ApiGProxyToHttp4s[F[_]](httpServices: Stream[F, HttpRoutes[F]])(implicit compiler: Stream.Compiler[F, F], FF: Concurrent[F])
     extends IOFunction[Input, F[ApiGProxyHttp4sRequestResponseLayer.Output]] {
   type Response = ApiGProxyHttp4sRequestResponseLayer.Output
   private val reqRespToHttp4s = new RequestRespnseToHttp4sRoutesLayer(httpServices)
   private val http4sProcessor = ApiGProxyHttp4sRequestResponseLayer(Layer.F(reqRespToHttp4s.apply))
-  private val log: Logger     = LoggerFactory.getLogger(classOf[ApiGProxyLambda[F]])
+  private val log: Logger     = LoggerFactory.getLogger(classOf[ApiGProxyToHttp4s[F]])
 
   @SuppressWarnings(Array("org.wartremover.warts.Null")) //fixme
   override def apply(input: ApiGatewayProxyHttp4sProcessor.Input): F[ApiGProxyHttp4sRequestResponseLayer.Output] = {
