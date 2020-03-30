@@ -1,0 +1,7 @@
+if (telephonyManagerHelper.imsiSIM1 != null && telephonyManagerHelper.imsiSIM1 != "") {
+    Logger.d(TAG, "telephonyManagerHelper.imsiSIM1 = {0}", telephonyManagerHelper.imsiSIM1)
+    imei = telephonyManagerHelper.imsiSIM1
+} else if (telephonyManagerHelper.imsiSIM2 != null && telephonyManagerHelper.imsiSIM2 != "") {
+    Logger.d(TAG, "telephonyManagerHelper.imsiSIM2 = {0}", telephonyManagerHelper.imsiSIM2)
+    imei = telephonyManagerHelper.imsiSIM2
+}
