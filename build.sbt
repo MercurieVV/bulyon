@@ -359,7 +359,7 @@ lazy val lambdaHttp4sFs2Zio = (project in file("lambda-http4s-fs2zio"))
       "dev.zio" %% "zio" % "1.0.0-RC15",
       "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC5",
 
-      "org.scalatest" % "scalatest_2.12" % "3.0.8" % "test",
+      "org.scalatest" %% "scalatest" % "3.1.1" % "test",
     )
   )
   .dependsOn(lambdaHttp4s)

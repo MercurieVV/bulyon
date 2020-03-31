@@ -35,7 +35,7 @@ object StringToObjectLayer {
           }
         }),
         f,
-        Arrow[F].lift(v => printer.pretty(v._2.asJson))
+        Arrow[F].lift(v => printer.print(v._2.asJson))
     )
   }
 }

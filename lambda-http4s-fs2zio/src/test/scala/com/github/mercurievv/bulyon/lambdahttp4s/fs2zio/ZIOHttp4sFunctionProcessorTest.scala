@@ -6,8 +6,9 @@ import com.github.mercurievv.bulyon.lambdahttp4s.{ApiGProxyHttp4sRequestResponse
 import fs2._
 import org.http4s.dsl.impl.Root
 import org.http4s.dsl.io.{->, /, POST}
-import org.http4s.{EntityBody, HttpService, Response}
-import org.scalatest.FlatSpec
+import org.http4s.{EntityBody, HttpRoutes, HttpService, Response}
+import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import zio.{DefaultRuntime, Exit, ZIO}
 import zio.interop.catz._
 import zio.interop.catz.implicits._
@@ -19,7 +20,7 @@ import zio.interop.catz.implicits._
   * Time: 4:24 PM
   * Contacts: email: mercurievvss@gmail.com Skype: 'grobokopytoff' or 'mercurievv'
   */
-class ZIOHttp4sFunctionProcessorTest extends FlatSpec {
+class ZIOHttp4sFunctionProcessorTest extends AnyFlatSpec {
   type AIO[T] = ZIO[Unit, Throwable, T]
   val proc = new ZIOHttp4sFunctionProcessor[Unit]
   "Stream with error" should "return correct error after processing" in {
@@ -37,7 +38,7 @@ class ZIOHttp4sFunctionProcessorTest extends FlatSpec {
 
     val apigProxyLambda: ApiGProxyToHttp4s[AIO] = new ApiGProxyToHttp4s(
       fs2.Stream(
-        HttpService[AIO] {
+        HttpRoutes.of[AIO] {
           case req@POST -> Root / "test" =>
             proc.process[Int, Stream[AIO, String]](
               function,
@@ -49,7 +50,7 @@ class ZIOHttp4sFunctionProcessorTest extends FlatSpec {
     )
     val runtime             = new DefaultRuntime {}
 
-    val respBody = runtime.unsafeRunSync(apigProxyLambda(ApiGatewayProxyRequest("/test", "/test", "POST", None,None,None,None,None,None)).provide(Unit)) match {
+    val respBody = runtime.unsafeRunSync(apigProxyLambda(ApiGatewayProxyRequest("/test", "/test", "POST", None,None,None,None,None,None)).provide(())) match {
       case Exit.Failure(cause) =>
         println(cause)
         succeed

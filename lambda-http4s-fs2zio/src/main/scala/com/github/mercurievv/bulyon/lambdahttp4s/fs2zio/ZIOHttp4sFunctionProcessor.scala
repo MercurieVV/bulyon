@@ -150,11 +150,11 @@ class ZIOHttp4sFunctionProcessor[R] extends Http4sFunctionProcessor[ZIO[R, Throw
     import _root_.io.circe.generic.auto._
     import _root_.io.circe.syntax._
     UIO {
-      printer.pretty(
+      printer.print(
         ErrorResponse(
           t.getMessage,
           ZonedDateTime.now(),
-          t.getStackTrace.mkString("", EOL, EOL),
+          t.getStackTrace.mkString("", System.lineSeparator, System.lineSeparator),
           code,
           name,
           ErrorRequestInfo(
