@@ -52,7 +52,7 @@ class ZIOHttp4sFunctionProcessorTest extends AnyFlatSpec {
 
     val respBody = runtime.unsafeRunSync(apigProxyLambda(ApiGatewayProxyRequest("/test", "/test", "POST", None,None,None,None,None,None)).provide(())) match {
       case Exit.Failure(cause) =>
-        println(cause)
+        println("ok")
         succeed
       case Exit.Success(value) =>
         println(value)
