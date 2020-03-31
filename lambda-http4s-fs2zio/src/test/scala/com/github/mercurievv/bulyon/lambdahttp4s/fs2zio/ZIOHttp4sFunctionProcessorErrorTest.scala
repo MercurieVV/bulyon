@@ -20,7 +20,7 @@ import zio.interop.catz.implicits._
   * Time: 4:24 PM
   * Contacts: email: mercurievvss@gmail.com Skype: 'grobokopytoff' or 'mercurievv'
   */
-class ZIOHttp4sFunctionProcessorTest extends AnyFlatSpec {
+class ZIOHttp4sFunctionProcessorErrorTest extends AnyFlatSpec {
   type AIO[T] = ZIO[Unit, Throwable, T]
   val proc = new ZIOHttp4sFunctionProcessor[Unit]
   "Stream with error" should "return correct error after processing" in {
