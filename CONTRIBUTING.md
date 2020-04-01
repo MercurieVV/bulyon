@@ -1,6 +1,6 @@
 # Contributing to bulyon
 
-The bulyon project welcomes contributions from anybody wishing to participate. All code or documentation that is provided must be licensed with the same license that bulyon is licensed with (Apache 2.0, see LICENSE.txt).
+The bulyon project welcomes contributions from anybody wishing to participate. All code or documentation that is provided must be licensed with the same license that bulyon is licensed with (Apache 2.0, see [LICENSE](./LICENSE.md)).
 
 ## Code of Conduct
 

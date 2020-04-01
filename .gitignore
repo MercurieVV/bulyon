@@ -15,6 +15,7 @@ TAGS
 .tags
 project/metals.sbt
 .metals
+.bloop
 site/Gemfile.lock
 
 # Android studio 3.1+ serialized cache file

@@ -1,8 +1,6 @@
-This is the API documentation for the [[https://mercurievv.github.io/bulyon/ bulyon]] library.
-
 Http4s and AWS Lamnmbda tintegration
 
 Links:
 
-- [[https://mercurievv.github.io/bulyon/ Homepage]]
-- [[https://github.com/mercurievv/bulyon GitHub repository]]
+ - [[https://MercurieVV.github.io/bulyon/ Homepage]]
+ - [[https://github.com/MercurieVV/bulyon GitHub repository]]

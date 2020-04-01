@@ -8,6 +8,6 @@ Everyone is expected to follow the [Scala Code of Conduct] when discussing the p
 
 Any questions, concerns, or moderation requests please contact a maintainer of the project:
 
-- Viktors Kalinins: [Website](mercurievv@github.io) / [GitHub](https://github.com/mercurievv) / [Gitter](https://gitter.im/mercurievv) / [Twitter](https://twitter.com/mercurievv)
+- Viktors Kalinins: [Website](https://mercurievv.github.com) / [GitHub](https://github.com/MercurieVV) / [Gitter](https://gitter.im/MercurieVV) / [Twitter](https://twitter.com/MercurieVV)
 
 [Scala Code of Conduct]: https://www.scala-lang.org/conduct/
