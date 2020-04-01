@@ -286,7 +286,7 @@ lazy val site = project.in(file("site"))
   .enablePlugins(MdocPlugin)
   .settings(sharedSettings)
   .settings(doNotPublishArtifact)
-  .dependsOn(common)
+  .dependsOn(lambdaHttp4sFs2Zio)
   .settings {
     import microsites._
     Seq(
