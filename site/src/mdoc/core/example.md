@@ -10,9 +10,12 @@ We will create simple function, which will be called over APIGateway > AWSLambda
 Initially, in AWS you need create your **AWS Lambda** function and setup **API Gateway** to pass proxy request to it.
 
 ## Scala code
+```scala mdoc:silent
+libraryDependencies += "com.github.mercurievv" %% "bulyon-core" % "@VERSION@"
+```
 
 Create http4s route function
-```
+```scala mdoc:silent
 import zio.ZIO
 
 type APPIO[T] = ZIO[Unit, Throwable, T]
@@ -23,7 +26,7 @@ val coolFunction: String => APPIO[String] = (i: String) => ZIO
 ```
 
 Create handler instance, which will be called by AWS Lambda:
-```
+```scala mdoc:silent
 import zio.ZIO
 import fs2._
 import org.http4s._
