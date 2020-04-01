@@ -12,7 +12,7 @@ Initially, in AWS you need create your **AWS Lambda** function and setup **API G
 ## Scala code
 
 Create http4s route function
-```scala mdoc:silent
+```
 import zio.ZIO
 
 type APPIO[T] = ZIO[Unit, Throwable, T]
@@ -23,7 +23,7 @@ val coolFunction: String => APPIO[String] = (i: String) => ZIO
 ```
 
 Create handler instance, which will be called by AWS Lambda:
-```scala mdoc:silent
+```
 import zio.ZIO
 import fs2._
 import org.http4s._
