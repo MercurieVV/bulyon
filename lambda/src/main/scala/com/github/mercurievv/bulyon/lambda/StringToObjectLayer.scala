@@ -28,7 +28,7 @@ object StringToObjectLayer {
   def apply[F[_, _]: Arrow, I, O](f: F[I, O])(implicit d: Decoder[I], e: Encoder[O]): F[JSON, JSON] = {
     Layer[F, JSON, I, O, JSON](
         Arrow[F].lift(jsonS => {
-          val json = decode[I](jsonS).left.map(t => throw InternalServerError_500("Cant parse JSON", Some(t), minor))
+          val json = decode[I](jsonS).left.map(t => throw InternalServerError_500(s"Cant parse JSON: ${jsonS}", Some(t), minor))
           json match {
             case Right(x) => x
             case Left(t)  => throw InternalServerError_500("Cant parse JSON", Some(t), minor)
