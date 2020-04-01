@@ -1,17 +1,14 @@
 package com.github.mercurievv.bulyon.lambdahttp4s.fs2zio
 
 import com.github.mercurievv.bulyon.lambda.ApiGatewayProxyRequest
-import io.circe.generic.auto._
-import com.github.mercurievv.bulyon.lambdahttp4s.{ApiGProxyHttp4sRequestResponseLayer, ApiGProxyToHttp4s, ApiGSimpleHandler}
+import com.github.mercurievv.bulyon.lambdahttp4s.ApiGProxyToHttp4s
 import fs2._
+import org.http4s.HttpRoutes
 import org.http4s.dsl.impl.Root
 import org.http4s.dsl.io.{->, /, POST}
-import org.http4s.{EntityBody, HttpRoutes, HttpService, Response}
-import org.scalatest._
 import org.scalatest.flatspec.AnyFlatSpec
-import zio.{DefaultRuntime, Exit, ZIO}
 import zio.interop.catz._
-import zio.interop.catz.implicits._
+import zio.{DefaultRuntime, Exit, ZIO}
 
 /**
   * Created with IntelliJ IDEA.
@@ -30,16 +27,15 @@ class ZIOHttp4sFunctionProcessorErrorTest extends AnyFlatSpec {
         val value = ZIO.succeed(i)
 
         Stream
-          .eval(value).map(t => {
+          .eval(value).map(_ => {
             throw new RuntimeException("e1")
-            t.toString
           })
       }
 
     val apigProxyLambda: ApiGProxyToHttp4s[AIO] = new ApiGProxyToHttp4s(
       fs2.Stream(
         HttpRoutes.of[AIO] {
-          case req@POST -> Root / "test" =>
+          case POST -> Root / "test" =>
             proc.process[Int, Stream[AIO, String]](
               function,
               ZIO.succeed(5),
@@ -50,8 +46,8 @@ class ZIOHttp4sFunctionProcessorErrorTest extends AnyFlatSpec {
     )
     val runtime             = new DefaultRuntime {}
 
-    val respBody = runtime.unsafeRunSync(apigProxyLambda(ApiGatewayProxyRequest("/test", "/test", "POST", None,None,None,None,None,None)).provide(())) match {
-      case Exit.Failure(cause) =>
+    runtime.unsafeRunSync(apigProxyLambda(ApiGatewayProxyRequest("/test", "/test", "POST", None,None,None,None,None,None)).provide(())) match {
+      case Exit.Failure(_) =>
         println("ok")
         succeed
       case Exit.Success(value) =>

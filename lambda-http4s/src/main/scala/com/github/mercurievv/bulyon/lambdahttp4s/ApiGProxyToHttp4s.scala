@@ -1,7 +1,6 @@
 package com.github.mercurievv.bulyon.lambdahttp4s
 
-import cats.Monad
-import cats.effect.{Concurrent, ConcurrentEffect, IO}
+import cats.effect.Concurrent
 import com.amazonaws.services.lambda.runtime.Context
 import com.github.mercurievv.bulyon.common.{IOFunction, Layer}
 import com.github.mercurievv.bulyon.lambda.ApiGatewayProxyResponse
@@ -11,7 +10,6 @@ import org.http4s.HttpRoutes
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.immutable
-import scala.language.higherKinds
 
 /**
   * Created with IntelliJ IDEA.
@@ -29,12 +27,12 @@ class ApiGProxyToHttp4s[F[_]](httpServices: Stream[F, HttpRoutes[F]])(implicit c
 
   @SuppressWarnings(Array("org.wartremover.warts.Null")) //fixme
   override def apply(input: ApiGatewayProxyHttp4sProcessor.Input): F[ApiGProxyHttp4sRequestResponseLayer.Output] = {
-    handleRequest(httpServices, input, null)
+    handleRequest(input, null)
   }
 
-  private def handleRequest(httpServices: Stream[F, HttpRoutes[F]], input: Input, context: Context): F[ApiGProxyHttp4sRequestResponseLayer.Output] = {
+  private def handleRequest(input: Input, context: Context) = {
 //    SentryHelper.setTag("call_to", input.httpMethod + " " + input.path + " " + input.resource)
-    log.info(s"Request ${input.httpMethod} ${input.path} ${input.resource} ${input.body} ${input.headers}") //we need to log it manually as http4s logger logs request only AFTER it finished. And we need it before to send info to sentry
+    log.info(s"Request ${input.httpMethod} ${input.path} ${input.resource} ${input.body} ${input.headers} $context") //we need to log it manually as http4s logger logs request only AFTER it finished. And we need it before to send info to sentry
     if (input.path == "is_alive")
       FF.pure(ApiGatewayProxyResponse(200, immutable.Map.empty, "OK", isBase64Encoded = false))
     else

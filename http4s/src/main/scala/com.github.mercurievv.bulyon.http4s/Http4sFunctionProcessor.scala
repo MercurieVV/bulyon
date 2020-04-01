@@ -2,8 +2,6 @@ package com.github.mercurievv.bulyon.http4s
 
 import org.http4s.{EntityEncoder, Request, Response}
 
-import scala.language.higherKinds
-
 /**
   * Created with IntelliJ IDEA.
   * User: Victor Mercurievv

@@ -1,14 +1,9 @@
 package com.github.mercurievv.bulyon.lambdahttp4s
 
-import cats.Monad
-import cats.data.OptionT
-import cats.implicits._
-import cats.effect.{Concurrent, ConcurrentEffect}
+import cats.effect.Concurrent
 import fs2.Stream
-import org.http4s.{HttpRoutes, Request, Response}
 import org.http4s.server.middleware.{RequestLogger, ResponseLogger}
-
-import scala.language.higherKinds
+import org.http4s.{HttpRoutes, Request, Response}
 
 /**
   * Created with IntelliJ IDEA.

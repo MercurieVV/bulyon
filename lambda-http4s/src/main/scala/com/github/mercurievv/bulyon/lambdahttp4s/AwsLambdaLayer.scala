@@ -9,16 +9,12 @@ package com.github.mercurievv.bulyon.lambdahttp4s
   */
 import java.io.{InputStream, OutputStream}
 
-import cats.{CommutativeMonad, Monad}
-import cats.arrow.Arrow
+import cats.Monad
 import cats.data.Kleisli
-import cats.effect.IO
-import cats.implicits._
 import com.github.mercurievv.bulyon.common.Layer
 import com.github.mercurievv.bulyon.lambda.{JStreamToStringLayer, StringToObjectLayer}
 import io.circe.{Decoder, Encoder}
 
-import scala.language.higherKinds
 import scala.util.Try
 
 object AwsLambdaLayer {

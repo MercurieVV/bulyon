@@ -4,18 +4,12 @@ import java.time.ZonedDateTime
 
 import com.github.mercurievv.bulyon.common._
 import com.github.mercurievv.bulyon.http4s.Http4sFunctionProcessor
-
-import scala.compat.Platform.EOL
-//import org.http4s.dsl.io._
 import _root_.io.circe._
-import io.circe.generic.auto._
 import org.http4s._
 import org.http4s.dsl._
 import org.slf4j.{Logger, LoggerFactory}
 import zio.interop.catz._
 import zio.{ZIO, _}
-
-import scala.language.higherKinds
 
 /**
  * Created with IntelliJ IDEA.
@@ -69,7 +63,7 @@ class ZIOHttp4sFunctionProcessor[R] extends Http4sFunctionProcessor[ZIO[R, Throw
                                   errData: ErrData
                                 ): APPIO[Response[APPIO]] = {
     t match {
-      case BusinessError(Some(beId)) =>
+      case BusinessError(Some(_)) =>
         //        SentryHelper.setTag("error_type", "business_error")
         //        SentryHelper.setTag("business_error_type", beId)
         log.error(t.getMessage, t)

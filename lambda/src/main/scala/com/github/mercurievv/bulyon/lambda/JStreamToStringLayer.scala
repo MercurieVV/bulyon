@@ -8,7 +8,6 @@ import com.github.mercurievv.bulyon.common.Layer
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.io.Source
-import scala.language.higherKinds
 import scala.util.Try
 
 /**

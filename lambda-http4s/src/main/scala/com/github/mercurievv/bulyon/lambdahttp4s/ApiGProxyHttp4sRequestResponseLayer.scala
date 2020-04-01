@@ -1,16 +1,13 @@
 package com.github.mercurievv.bulyon.lambdahttp4s
 
-import cats.Monad
 import cats.arrow.Arrow
 import cats.data.Kleisli
-import cats.effect.{Concurrent, ConcurrentEffect}
+import cats.effect.Concurrent
 import cats.implicits._
 import com.github.mercurievv.bulyon.common.Layer
 import com.github.mercurievv.bulyon.lambda.{ApiGatewayProxyRequest, ApiGatewayProxyResponse}
 import fs2.Stream
-import org.http4s.{Header, HttpRoutes, Request, Response}
-
-import scala.language.higherKinds
+import org.http4s.{Header, Request, Response}
 
 /**
   * Created with IntelliJ IDEA.

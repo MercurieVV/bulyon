@@ -7,7 +7,6 @@ import com.github.mercurievv.bulyon.lambdahttp4s.ApiGatewayProxyHttp4sProcessor.
 import fs2._
 import org.http4s.server.middleware._
 
-import scala.language.higherKinds
 import org.http4s.{HttpRoutes, _}
 import uk.org.lidalia.sysoutslf4j.context.{LogLevel, SysOutOverSLF4J}
 
