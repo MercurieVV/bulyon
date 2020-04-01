@@ -25,7 +25,7 @@ import scala.language.higherKinds
  * Contacts: email: mercurievvss@gmail.com Skype: 'grobokopytoff' or 'mercurievv'
  */
 class ZIOHttp4sFunctionProcessor[R] extends Http4sFunctionProcessor[ZIO[R, Throwable, ?], ZIO[R, Throwable, ?]] {
-  type APPIO[A] = ZIO[R, Throwable, A]
+  type APPIO[A] = LIO[R, A]
   val dsl: Http4sDsl[APPIO] = Http4sDsl[APPIO]
   import dsl._
   private val log: Logger = LoggerFactory.getLogger(classOf[ZIOHttp4sFunctionProcessor[_]])
