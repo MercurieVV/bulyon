@@ -355,7 +355,7 @@ lazy val lambdaHttp4sFs2Zio = (project in file("lambda-http4s-fs2zio"))
   .settings(sharedSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "co.fs2" %% "fs2-core" % "2.3.0",
+      "co.fs2" %% "fs2-core" % "2.2.2",
       "dev.zio" %% "zio" % "1.0.0-RC15",
       "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC5",
 
@@ -431,6 +431,9 @@ lazy val site = project.in(file("site"))
       sourceDirectory in Compile := baseDirectory.value / "src",
       sourceDirectory in Test := baseDirectory.value / "test",
       mdocIn := (sourceDirectory in Compile).value / "mdoc",
+         mdocVariables := Map(
+            "VERSION" -> version.value
+             )
     )
   }
 

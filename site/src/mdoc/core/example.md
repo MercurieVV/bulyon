@@ -33,7 +33,7 @@ import zio.interop.catz._
 
 object AwsLambdaZioRuntime extends SimpleZioHandler {
 
-  override val routes: Stream[Pure, HttpRoutes[APPIO]] = Stream(
+  override val routes: fs2.Stream[Pure, HttpRoutes[APPIO]] = Stream(
     HttpRoutes.of[APPIO] {
       case rq@POST -> Root / "test" =>
         proc.process[String, String](coolFunction, rq.as[String], rq)
