@@ -230,6 +230,7 @@ val circeVersion = "0.13.0"
 lazy val http4s = (project in file("http4s"))
   .settings(sharedSettings)
   .settings(
+    name := "bulyon-common",
     libraryDependencies ++= Seq(
       "org.http4s" %% "http4s-server" % http4sVersion,
       "org.http4s" %% "http4s-dsl" % http4sVersion,
@@ -241,6 +242,7 @@ lazy val http4s = (project in file("http4s"))
 lazy val lambda = (project in file("lambda"))
   .settings(sharedSettings)
   .settings(
+    name := "bulyon-lambda",
     libraryDependencies ++= Seq(
       "com.amazonaws" % "aws-lambda-java-core" % "1.2.0",
       "org.typelevel" %% "cats-core" % CatsVersion,
@@ -252,11 +254,13 @@ lazy val lambda = (project in file("lambda"))
 
 lazy val lambdaHttp4s = (project in file("lambda-http4s"))
   .settings(sharedSettings)
+  .settings(name := "bulyon-lambda-http4s")
   .dependsOn(http4s, lambda)
 
 lazy val lambdaHttp4sFs2Zio = (project in file("lambda-http4s-fs2zio"))
   .settings(sharedSettings)
   .settings(
+    name := "bulyon-lambda-http4s-fs2zio",
     libraryDependencies ++= Seq(
       "co.fs2" %% "fs2-core" % "2.2.2",
       "dev.zio" %% "zio" % "1.0.0-RC15",
@@ -270,7 +274,7 @@ lazy val lambdaHttp4sFs2Zio = (project in file("lambda-http4s-fs2zio"))
 
 lazy val root = project.in(file("."))
   .enablePlugins(ScalaUnidocPlugin)
-  .aggregate(lambdaHttp4s, lambdaHttp4sFs2Zio)
+  .aggregate(lambdaHttp4s, lambdaHttp4sFs2Zio, common, lambda, http4s)
   .configure(defaultPlugins)
   .settings(sharedSettings)
   .settings(doNotPublishArtifact)
