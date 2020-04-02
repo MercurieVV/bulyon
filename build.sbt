@@ -236,6 +236,7 @@ lazy val http4s = (project in file("http4s"))
       "org.http4s" %% "http4s-dsl" % http4sVersion,
       "org.http4s" %% "http4s-circe" % http4sVersion,
       "org.http4s" %% "http4s-core" % http4sVersion,
+      "uk.org.lidalia" % "sysout-over-slf4j" % "1.0.2",
     )
   ).dependsOn(common)
 
