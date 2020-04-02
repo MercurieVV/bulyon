@@ -230,7 +230,7 @@ val circeVersion = "0.13.0"
 lazy val http4s = (project in file("http4s"))
   .settings(sharedSettings)
   .settings(
-    name := "bulyon-common",
+    name := "bulyon-http4s",
     libraryDependencies ++= Seq(
       "org.http4s" %% "http4s-server" % http4sVersion,
       "org.http4s" %% "http4s-dsl" % http4sVersion,
