@@ -11,7 +11,7 @@ Initially, in AWS you need create your **AWS Lambda** function and setup **API G
 
 ## Scala code
 ```scala
-libraryDependencies += "com.github.mercurievv" %% "lambdahttp4sfs2zio" % "1.0.10"
+libraryDependencies += "com.github.mercurievv" %% "bulyon-lambda-http4s-fs2zio" % "@VERSION@"
 ```
 
 Create http4s route function

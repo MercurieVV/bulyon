@@ -5,7 +5,7 @@ position: 1
 
 # bulyon
 
-[![Build status](https://github.com/mercurievv/bulyon/workflows/build/badge.svg?branch=master)](https://github.com/mercurievv/bulyon/actions?query=branch%3Amaster+workflow%3Abuild) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mercurievv/bulyon-common_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mercurievv/bulyon-common_2.13)
+[![Build status](https://github.com/mercurievv/bulyon/workflows/build/badge.svg?branch=master)](https://github.com/mercurievv/bulyon/actions?query=branch%3Amaster+workflow%3Abuild) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mercurievv/bulyon-lambda-http4s-fs2zio_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mercurievv/bulyon-lambda-http4s-fs2zio_2.13)
 
 Http4s and AWS Lammbda tintegration
 
@@ -14,5 +14,5 @@ Http4s and AWS Lammbda tintegration
 The packages are published on Maven Central.
 
 ```scala
-libraryDependencies += "com.github.mercurievv" %% "bulyon-core" % "@VERSION@"
+libraryDependencies += "com.github.mercurievv" %% "bulyon-lambda-http4s-fs2zio" % "@VERSION@"
 ```
