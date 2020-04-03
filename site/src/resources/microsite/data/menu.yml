@@ -7,3 +7,9 @@ options:
       - title: Example
         url: core/example.html
         menu_section: example
+      - title: Arhitecture
+        url: core/arhitecture.html
+        menu_section: arhitecture
+      - title: Using OpenAPI/Swagger
+        url: core/openapi.html
+        menu_section: openapi
