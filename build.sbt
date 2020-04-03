@@ -1,5 +1,5 @@
-import BuildKeys._
 import Boilerplate._
+import BuildKeys._
 
 // ---------------------------------------------------------------------------
 // Commands
@@ -337,7 +337,11 @@ lazy val site = project.in(file("site"))
       ),
       // Bug in sbt-microsites
       micrositeConfigYaml := microsites.ConfigYml(
-        yamlCustomProperties = Map("exclude" -> List.empty[String])
+        yamlCustomProperties = Map(
+          "exclude" -> List.empty[String],
+          "plugins" -> List("jekyll-mermaid"),
+          "mermaid" -> Map("src" -> "mermaid.min.js")
+        )
       ),
     )
   }
