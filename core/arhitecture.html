@@ -1,0 +1,29 @@
+<hr />
+<p>layout: docs
+title:  “Arhitecture”
+position: 3</p>
+
+<h1 id="configurations-for-blockdiag">configurations for blockdiag</h1>
+
+<h1 id="arhitecture">Arhitecture</h1>
+<div class="diagram">
+```flow
+st=&gt;start: Client HTTP request
+apig=&gt;operation: APIGateway proxy|aws
+awslambda=&gt;operation: AWS Lambda|aws
+bulyon=&gt;operation: Bulyon framework|lib
+http4s=&gt;operation: Http4s|lib
+bl=&gt;operation: Business logic|bl
+
+st-&gt;apig-&gt;awslambda-&gt;bulyon-&gt;http4s-&gt;bl
+​```
+</div>
+
+<script src="mermaid.min.js"></script>
+<div class="mermaid">
+graph TD;
+    A--&gt;B;
+    A--&gt;C;
+    B--&gt;D;
+    C--&gt;D;
+</div>
